@@ -1,0 +1,28 @@
+{
+    "name": "grindery-near-contracts",
+    "version": "1.0.0",
+    "description": "Smart contracts and account management",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "new-account":"npx ts-node account-management/near-account.ts $network $accountname",
+        "build": "cd $contract && cd nft-contract && bash build.sh && cd .. && ls && cd market-contract && bash build.sh && cd .. && cd nft-series && bash build.sh && cd ..",
+        "test": "npm run test:unit && npm run test:integration",
+        "test:unit": "npm run test:unit:nft && npm run test:unit:market",
+        "test:unit:nft": "cd $contract && cd nft-contract && cargo test -- --nocapture --color=always && cd ..",
+        "test:unit:market": "cd $contract && cd market-contract && cargo test -- --nocapture --color=always && cd ..",
+        "test:integration": "npm run test:integration:ts && npm run test:integration:rs",
+        "test:integration:ts": "cd $contract && cd integration-tests/ts && npm i && npm run test",
+        "test:integration:rs": "cd $contract && cd integration-tests/rs && cargo run --example integration-tests"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "near-api-js": "^1.1.0",
+        "os": "^0.1.2",
+        "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "@tsconfig/node16": "^1.0.3",
+        "@types/node": "^18.11.11"
+    }
+}
